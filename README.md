@@ -4,69 +4,55 @@
 
 ### 1. 소개
 
-- JavaScript는 초창기에 웹페이지의 보조적인 기능을 수행하기 위해 한정적인 용도로 사용되었다.
-  대부분 로직이 주로 web server에서 실행되었고 client는 server로 부터 전달받은 html과 css를
-  렌더링하는 수준이였다.
-
-- HTML5가 등장하기 이전까지 web application은 플래시, 실버라이트, 액티브액스와 같은 플러그인에
-  의존하여 인터렉티브한 웹페이지를 구축해왔다. 그러다가 HTML5가 등장함으로써 플로그인에 의존하던
-  구축방식은 JavaScript로 대체되었다. 또한 AJAX의 활성화로 데스크탑 application과 유사한 사용자
-  경험을 제공할수 있는 SPA(Single Page Application)가 대세가 되었다. 이로써 과거 server측이
-  담당하던 업무의 많은 부분이 client측으로 이동하게 되었고, JavaScript는 web의 어셈블리 언어로
-  불릴만큼 중요한 언어로 그 위상이 높아지게 되었지만 언어가 잘 정제되기 이전에 서둘러 출시된
-  문제와 과거 웹페이즈의 보저적인 기능을 수행하기 위해 한정적인 용도로 만들어진 태생적 한계가
-  존재한다.
-
-- Javscript는 C나 JAVA 와 같은 언어와는 구별되는 아래와 같은 특성이 있다.
-
-  - Prototype-based Object Oriented Language
-  - Scope와 this
-  - 동적 타입(dynamic typed) 언어 혹은 느슨한 타입(loosely typed) 언어
-
-- 이와 같은 특성은 클래스 기반의 객체지향언어에 익숙한 개발자를 혼란스럽게 하며 코드가 복잡해질
-  수 있고 디버그와 테스트 횟수가 증가하는 등의 문제를 일으킬수 있어 규모가 큰 프로젝트에서는
-  주의하여야한다.
-
-- 이같은 자바스크립트의 태생적 문제를 극복하고자 CoffeeScript, Dart, Haxe와 같은 AltJS가 등장하였다.
-
-- TypeScript 또한 자바스크립트 대체 언어의 하나로써 자바스크립트(ES5)의 Superset(상위확장)이다. C#의 창시자인 덴마크 출신 소프트웨어 엔지니어 Anders Hejlsberg(아네르스 하일스베르)가 개발을 주도한 TypeScript는 Microsoft에서 2012년 발표한 오픈소스로, 정적 타이핑을 지원하며 ES6(ECMAScript 2015)의 클래스, 모듈 등과 ES7의 Decorator 등을 지원한다.
+- JavaScript 대체 언어의 하나로써 JavaScript(ES5)의 Superset(상위확장)이다. C#의 창시자인 덴마크 출신 소프트웨어 엔지니어 Anders Hejlsberg(아네르스 하일스베르)가 개발을 주도한 TypeScript는 Microsoft에서 2012년 발표한 오픈소스로, 정적 타이핑을 지원하며 ES6(ECMAScript 2015)의 클래스, 모듈 등과 ES7의 Decorator 등을 지원한다.
 
 <img src="https://poiemaweb.com/img/typescript-superset.png" width="60%" height="50%" alt="typescript-superset"></img>
 
-- TypeScript는 ES5의 Superset이므로 기존의 자바스크립트(ES5) 문법을 그대로 사용할 수 있다. 또한, ES6의 새로운 기능들을 사용하기 위해 Babel과 같은 별도 트랜스파일러(Transpiler)를 사용하지 않아도 ES6의 새로운 기능을 기존의 자바스크립트 엔진(현재의 브라우저 또는 Node.js)에서 실행할 수 있다.
+- TypeScript는 ES5의 Superset이므로 기존의 JavaScript(ES5) 문법을 그대로 사용할 수 있다. 또한, ES6의 새로운 기능들을 사용하기 위해 Babel과 같은 별도 트랜스파일러(Transpiler)를 사용하지 않아도 ES6의 새로운 기능을 기존의 JavaScript 엔진(현재의 브라우저 또는 Node.js)에서 실행할 수 있다.
 
 - 이후 ECMAScript의 업그레이드에 따른 새로운 기능을 지속적으로 추가할 예정이여서 매년 업그레이드될 ECMAScript의 표준을 따라갈 수 있는 좋은 수단이 될 것이다.
 
-1. [Node.js](https://nodejs.org/ko/)
+### 2. 장점
 
-2. TypeScript 컴파일러 설치 및 사용법
+- 정적 타입
+
+```ts
+// error : TSError: ⨯ Unable to compile TypeScript:
+const sum = (a, b) => {
+	return a + b;
+};
+
+// 정확한 parameter의 타입을 명시하여 개발자의 의도에 따라 기능이 수행되도록 돕는다.
+const sum = (a: number, b: number) => {
+	return a + b;
+};
+
+console.log(sum(1, 2));
+```
+
+- 강력한 객체지향 프로그래밍 지원
+  - 인터페이스, 제네릭 등과 같은 강력한 객체지향 프로그래밍 지원은 크고 복잡한 프로젝트의 코드 기반을 쉽게 구성할 수 있도록 도우며, Java, C# 등의 클래스 기반 객체지향 언어에 익숙한 개발자가 자바스크립트 프로젝트를 수행하는 데 진입 장벽을 낮추는 효과도 있다.
+
+### 개발환경 구축
+
+- [Node.js](https://nodejs.org/ko/)
+
+- TypeScript 컴파일러 설치
 
 ```sh
-// TypeScript설치
+// 설치
 > npm install -g typescript
 
-// TypeScript 버젼 확인
+// 확인
 > tsc -v
 ```
 
-TypeScript 컴파일러(tsc)는 TypeScript파일(.ts)을 자바스크립트 파일로 Transpiling을 한다.
+### 사용 방법 및 tsc 옵션 설정
 
-person.ts 생성
-
-```sh
-// person을 Transpiling
-> tsc person
-```
-
-person.js 자동생성 된다 이때 버젼은 ES3이다 _기본버젼이 ES3이기때문_
-
-```sh
-// es6 버젼으로 Transpiling
-> tsc person -t es6
-```
+- TypeScript 컴파일러(tsc)는 TypeScript파일(.ts)을 JavaScript 파일로 Transpiling을 한다.
 
 ```ts
-// person.ts
+// person.ts 생성
 export class Person {
 	protected name: string;
 
@@ -77,6 +63,18 @@ export class Person {
 		return 'Hello, ' + this.name;
 	}
 }
+```
+
+```sh
+// person을 Transpiling
+> tsc person
+```
+
+- person.js 자동생성 된다 이때 버젼은 ES3이다 _기본버젼이 ES3이기때문_
+
+```sh
+// es6 버젼으로 Transpiling
+> tsc person -t es6
 ```
 
 ```ts
@@ -105,6 +103,89 @@ console.log(student.study());
 > tsc student --watch
 ```
 
+- tsc 옵션 설정 파일을 생성해서 매번 옵션을 지정하는 것은 대신한다
+
+```sh
+// tsconfig.json 생성
+> tsc --init
+
+// tsconfig.json을 무시
+> tsc person
+
+// tsconfig.json을 적용
+> tsc
+```
+
+### typescript 연습을 위한 개발환경 구축
+
+```sh
+// init
+> yarn init
+
+// devDependencies
+> yarn add -D typescript nodemon ts-node @types/node
+
+// tsc 설정
+> tsc --init
+```
+
+```ts
+// package.json
+{
+  ...
+  "scripts": {
+		"dev": "nodemon --config nodemon.json index.ts",
+		"dev:debug": "nodemon --config nodemon.json --inspect-brk index.ts"
+  },
+  ...
+}
+
+// nodemon.json
+{
+	"restartable": "rs",
+	"ignore": [".git", "node_modules/", "dist/", "coverage/"],
+	"watch": ["./"],
+	"execMap": {
+		"ts": "node -r ts-node/register"
+	},
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"ext": "js,json,ts"
+}
+
+```
+
+### 외부 라이브러리 사용
+
+- TypeScript를 사용하는 이유는 여러가지 있지만 가장 큰 장점은 다양한 도구의 지원을 받을 수 있다는 것이다. TypeScript는 정적 타입을 지원하므로 높은 수준의 IntelliSense나 리팩토링 등을 지원하며 이러란 도구의 지원은 대규모 프로젝트를 위한 필수적 요소이기도 하다.
+
+- 프로젝트 내에는 필수적으로 다양한 라이브러리가 포함되는데 이 라이브러리들은 JavaScript로 작성되어있다. TypeScript는 ES5의 Superset(상위확장)이므로 JavaScript를 그대로 사용할 수 있다. 하지만 정적 타입이 없는 JavaScript를 그대로 사용하면 VSCode에서 제공하는 IntelliSense와 같은 다양한 도구의 지원을 받을 수 없다.
+
+- 따라서 외부 JavaScript 라이브러리에 대해서도 타입체크를 수행하려면 해당 라이브러리의 타입이 정의되어 있는 정의 파일(Definition file)을 제공해야 한다.
+
+```sh
+> yarn add lodash
+
+> yarn add -D @types/lodash
+```
+
+```ts
+// index.ts
+import * as _ from 'lodash';
+
+class Startup {
+	public static main(): number {
+		const group = _.groupBy(['one', 'two', 'three'], 'length');
+		console.log(group); // => { '3': ['one', 'two'], '5': ['three'] }
+		return 0;
+	}
+}
+
+Startup.main(); // { '3': [ 'one', 'two' ], '5': [ 'three' ] }
+```
+
 ### Reference
 
 - [poiemaweb.com](https://poiemaweb.com/)
+- [TypeScript & Nodemon — The Ultimate Setup!](https://levelup.gitconnected.com/typescript-nodemon-the-ultimate-setup-7200aa60cc8b)
