@@ -1,5 +1,5 @@
 //? Type Declaration : 타입 선언
-//? 정적 타이핑 : 타입을 명시적으로 선언하여 강제.
+//? 정적 타이핑 : dynamic typing에 의한 개발자 실수를 막기위해 type을 명시적 선언.
 
 //* 변수 foo는 string
 let foo: string = 'hello';
