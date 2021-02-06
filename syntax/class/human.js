@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 function greeter(human) {
     return "hello, " + human.firstName + " " + human.lastName;
 }
