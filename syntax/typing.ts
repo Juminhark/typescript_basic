@@ -122,7 +122,7 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
 
-// //* HTMLElement 타입
+//* HTMLElement 타입
 const elem: HTMLElement = dom.window.document.querySelector('p');
 
 class Person {}

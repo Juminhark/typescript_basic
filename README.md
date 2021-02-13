@@ -205,6 +205,10 @@ Startup.main(); // { '3': [ 'one', 'two' ], '5': [ 'three' ] }
 | void      |     |  ◯  | 일반적으로 함수에서 반환값이 없을 경우 사용한다.                                                                                        |
 | never     |     |  ◯  | 결코 발생하지 않는 값                                                                                                                   |
 
+### class
+
+- 접근 제한자
+
 ### Reference
 
 - [poiemaweb.com](https://poiemaweb.com/)

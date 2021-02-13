@@ -1,0 +1,7 @@
+{
+  "name": "snake_game",
+  "version": "1.0.0",
+  "description": "Basic old-school snake game built with HTML5 Canvas and TypeScript",
+  "main": "index.js",
+  "license": "MIT"
+}
