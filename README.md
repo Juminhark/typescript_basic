@@ -2,7 +2,7 @@
 
 <img src="https://poiemaweb.com/img/typescript-logo.png" width="60%" height="50%" alt="typescript-logo"></img>
 
-### 1. 소개
+### 소개
 
 - JavaScript 대체 언어의 하나로써 JavaScript(ES5)의 Superset(상위확장)이다. C#의 창시자인 덴마크 출신 소프트웨어 엔지니어 Anders Hejlsberg(아네르스 하일스베르)가 개발을 주도한 TypeScript는 Microsoft에서 2012년 발표한 오픈소스로, 정적 타이핑을 지원하며 ES6(ECMAScript 2015)의 클래스, 모듈 등과 ES7의 Decorator 등을 지원한다.
 
@@ -12,7 +12,7 @@
 
 - 이후 ECMAScript의 업그레이드에 따른 새로운 기능을 지속적으로 추가할 예정이여서 매년 업그레이드될 ECMAScript의 표준을 따라갈 수 있는 좋은 수단이 될 것이다.
 
-### 2. 장점
+### 장점
 
 - 정적 타입
 
@@ -189,25 +189,197 @@ Startup.main(); // { '3': [ 'one', 'two' ], '5': [ 'three' ] }
 
 - TypeScript는 ES5, ES6의 Superset(상위확장)이므로 자바스크립트의 타입을 그대로 사용할 수 있다. 자바스크립트의 타입 이외에도 TypeScript 고유의 타입이 추가로 제공
 
-| Type      | JS  | TS  | Description                                                                                                                             |
-| :-------- | :-: | :-: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| boolean   |  ◯  |  ◯  | true와 false                                                                                                                            |
-| null      |  ◯  |  ◯  | 값이 없다는 것을 명시                                                                                                                   |
-| undefined |  ◯  |  ◯  | 값을 할당하지 않은 변수의 초기값                                                                                                        |
-| number    |  ◯  |  ◯  | 숫자(정수와 실수, Infinity, NaN)                                                                                                        |
-| string    |  ◯  |  ◯  | 문자열                                                                                                                                  |
-| symbol    |  ◯  |  ◯  | 고유하고 수정 불가능한 데이터 타입이며 주로 객체 프로퍼티들의 식별자로 사용(ES6에서 추가)                                               |
-| object    |  ◯  |  ◯  | 객체형(참조형)                                                                                                                          |
-| array     |     |  ◯  | 배열                                                                                                                                    |
-| tuple     |     |  ◯  | 고정된 요소수 만큼의 타입을 미리 선언후 배열을 표현                                                                                     |
-| enum      |     |  ◯  | 열거형. 숫자값 집합에 이름을 지정한 것이다.                                                                                             |
-| any       |     |  ◯  | 타입 추론(type inference)할 수 없거나 타입 체크가 필요없는 변수에 사용. var 키워드로 선언한 변수와 같이 어떤 타입의 값이라도 할당 가능. |
-| void      |     |  ◯  | 일반적으로 함수에서 반환값이 없을 경우 사용한다.                                                                                        |
-| never     |     |  ◯  | 결코 발생하지 않는 값                                                                                                                   |
+| Type      | JS  | TS  | Description                                                              |
+| :-------- | :-: | :-: | :----------------------------------------------------------------------- |
+| boolean   |  ◯  |  ◯  | true와 false                                                             |
+| null      |  ◯  |  ◯  | 값이 없다는 것을 명시                                                    |
+| undefined |  ◯  |  ◯  | 값을 할당하지 않은 변수의 초기값                                         |
+| number    |  ◯  |  ◯  | 숫자(정수와 실수, Infinity, NaN)                                         |
+| string    |  ◯  |  ◯  | 문자열                                                                   |
+| symbol    |  ◯  |  ◯  | 고유하고 수정 불가능한 데이터 타입. 주로 객체 프로퍼티들의 식별자로 사용 |
+| object    |  ◯  |  ◯  | 객체형(참조형)                                                           |
+| array     |     |  ◯  | 배열                                                                     |
+| tuple     |     |  ◯  | 고정된 요소수 만큼의 타입을 미리 선언후 배열을 표현                      |
+| enum      |     |  ◯  | 열거형. 숫자값 집합에 이름을 지정한 것이다.                              |
+| any       |     |  ◯  | 어떤 타입의 값이라도 할당 가능.                                          |
+| void      |     |  ◯  | 일반적으로 함수에서 반환값이 없을 경우 사용한다.                         |
+| never     |     |  ◯  | 결코 발생하지 않는 값                                                    |
 
 ### class
 
-- 접근 제한자
+- 1. 클래스 정의(Class Definition)
+
+```ts
+//! error : 이경우 field 선언이 되어있지 않아
+class Person {
+	constructor(name: string) {
+		this.name = name;
+	}
+}
+
+class Person {
+	// class안에서 사용될 field 선언
+	name: string;
+
+	// name은 선언된 filed 이기 때문에 사용 가능
+	constructor(name: string) {
+		this.name = name;
+	}
+}
+```
+
+- 2. 접근 제한자(Access modifier)
+
+  - 다른 언어는 default가 protected이지만 typescript에서는 public
+    | 접근 가능성 | public(default) | protected | private |
+    | :----------| :-------------: | :------: | :------: |
+    | 클래스 내부 | ◯ | ◯ | ◯ |
+    | 자식 클래스 내부 | ◯ | ◯ | ✕ |
+    | 클래스 인스턴스 | ◯ | ✕ | ✕ |
+
+- 3. 생성자 파라미터에 접근 제한자 선언
+  - 접근제한자가 사용된 파라미터는 암묵적으로 클래스 filed로 선언
+
+```ts
+class Person {
+	// class안에서 사용될 field 선언
+	// name: string;
+
+	// 접근제한자가 사용된 파라미터는 암묵적으로 클래스 filed로 선언된다
+	constructor(private name: string) {
+		this.name = name;
+	}
+
+	walk(): string {
+		return `person who name is ${this.name}`;
+	}
+}
+```
+
+- 접근 제한자를 선언하지 않은 생성자 파라미터는 생성자 내부에서만 유효한 지역변수가되어 외부 참조 불가능
+
+```ts
+class Person {
+	// name은 생성자 내부에서만 유효한 지역 변수이다.
+	constructor(public firstName: string, name: string) {
+		console.log(name);
+	}
+}
+
+const foo = new Person('first', 'name'); // name
+console.log(foo); // Person { firstName: 'first' }
+```
+
+- 4. readonly 키워드
+  - readonly가 선언된 filed는 선언 시, 생성자 내부에서만 값을할당할수 있다.
+
+```ts
+class Foo {
+	private readonly MAX_LEN: number = 5;
+	private readonly MSG: string;
+
+	constructor() {
+		this.MSG = 'hello';
+		// 생성자 내부여서 값 할당 가능.
+		this.MAX_LEN = 10;
+	}
+
+	log() {
+		// readonly가 선언된 프로퍼티는 재할당이 금지된다.
+		// this.MAX_LEN = 10; //! error: Cannot assign to 'MAX_LEN' because it is a constant or a read-only property.
+
+		console.log(`MAX_LEN: ${this.MAX_LEN}`); // MAX_LEN: 5
+		console.log(`MSG: ${this.MSG}`); // MSG: hello
+	}
+}
+
+new Foo().log();
+```
+
+- 5. static 키워드
+  - static(정적) 선언은 class의 인스턴스생성 없이 호출할수 있다.
+
+```ts
+class FooStatic {
+	//* static filed
+	static counter = 0;
+
+	constructor(public prop: any) {
+		this.prop = prop;
+
+		//* 생성될때마다 늘어남
+		FooStatic.counter++;
+	}
+
+	static staticMethod() {
+		//* 정적 method는 this를 사용할 수 없다.
+		//* 정적 method 내부에서 this는 클래스의 인스턴스가 아닌 클래스 자신을 가리킨다.
+		console.log(this); // [Function: FooStatic] { staticMethod: [Function], counter: 0 }
+		return 'staticMethod';
+	}
+
+	prototypeMethod() {
+		return this.prop;
+	}
+}
+
+//* static은 클래스 이름으로 호출한다.
+console.log(FooStatic.staticMethod());
+console.log(FooStatic.counter);
+
+const fooStatic = new FooStatic(123);
+//* 정적 method는 인스턴스로 호출할 수 없다.
+// console.log(fooStatic.staticMethod()); //! error : Uncaught TypeError: foo.staticMethod is not a function
+console.log(FooStatic.counter); // 1
+```
+
+- 6. 추상 클래스
+  - 하나 이상의 추상 method를 포함하는 클래스
+  - 추상 method : abstract 키워드를 사용하여 내용이없이 이름과 타입만 선언된 method.
+    - 직접 인스턴스를 생성할수 없고, 상속만을 위해 사용된다.
+  - 추상 클래스를 상속한 클래스는 추상 method를 반드시 구현하여야한다.
+
+```ts
+abstract class Animal {
+	//* 추상 method
+	abstract makeSound(): void;
+
+	//* 일반 method
+	move(): void {
+		console.log('roaming the earth...');
+	}
+}
+
+//* 직접 인스턴스를 생성할수 없다
+// new Animal(); //! error : Cannot create an instance of an abstract class.
+
+class Dog extends Animal {
+	//* 추상 클래스를 상속한 클래스는 추상 method를 반드시 구현해야 한다
+	makeSound(): void {
+		console.log('awoooooo...');
+	}
+}
+
+const myDog = new Dog();
+myDog.makeSound();
+myDog.move();
+```
+
+### field vs properties
+
+- field : class 멤버 변수
+- properties : field에 유연한 메커니즘을 제공하는 멤버 method (getter/setter와 같이)
+
+### Interface
+
+- 1. Introduction
+
+  - 인터페이스는 일반적으로 타입체크를 위해 사용되며 변수, 함수, 클래스에 사용할수있다.
+  - 여러가지 타입을 갖는 properties로 이루어진 새로운 타입을 정의하는것
+  - 인터페이스에 선언된 properties 또는 method의 구현을 강제하여 일관성을 유지
+  - 직접 인스턴스를 생성할 수 엇고 모든 method는 추상 method, 단 abstract 키워드를 사용안함
+
+- 2.
 
 ### Reference
 

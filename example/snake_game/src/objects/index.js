@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SlowPlayer = exports.FastPlayer = exports.Snake = exports.Coin = void 0;
+var coin_js_1 = require("./coin.js");
+Object.defineProperty(exports, "Coin", { enumerable: true, get: function () { return coin_js_1.Coin; } });
+var snake_js_1 = require("./snake.js");
+Object.defineProperty(exports, "Snake", { enumerable: true, get: function () { return snake_js_1.Snake; } });
+var fastplayer_js_1 = require("./fastplayer.js");
+Object.defineProperty(exports, "FastPlayer", { enumerable: true, get: function () { return fastplayer_js_1.FastPlayer; } });
+var slowplayer_js_1 = require("./slowplayer.js");
+Object.defineProperty(exports, "SlowPlayer", { enumerable: true, get: function () { return slowplayer_js_1.SlowPlayer; } });
