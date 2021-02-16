@@ -375,11 +375,204 @@ myDog.move();
 - 1. Introduction
 
   - 인터페이스는 일반적으로 타입체크를 위해 사용되며 변수, 함수, 클래스에 사용할수있다.
-  - 여러가지 타입을 갖는 properties로 이루어진 새로운 타입을 정의하는것
+  - properties와 추상 method로 새로운 타입을 정의하는것
   - 인터페이스에 선언된 properties 또는 method의 구현을 강제하여 일관성을 유지
-  - 직접 인스턴스를 생성할 수 엇고 모든 method는 추상 method, 단 abstract 키워드를 사용안함
+  - 직접 인스턴스를 생성할 수 없고 모든 method는 추상 method, 단 abstract 키워드를 사용안함
 
-- 2.
+- 2. 변수와 인터페이스
+  - 인터페이스는 변수의 타입으로 사용할수있다.
+  - 인터페이스를 사용하여 함수의 파라미터의 타입을 선언할수 있다.
+
+```ts
+//? interface definition
+interface Todo {
+	id: number;
+	content: string;
+	completed: boolean;
+}
+
+//* 변수 todo의 타입으로 Todo interface를 선언하였다.
+let todo: Todo;
+
+//* 변수 todo는 Todo interface를 준수하여야 한다.
+todo = { id: 1, content: 'typescript', completed: false };
+
+let todos: Todo[] = [];
+
+//* parameter todo의 타입으로 Todo interface를 선언
+function addTodo(todo: Todo) {
+	todos = [...todos, todo];
+}
+
+const removeTodo = (): void => {
+	if (todos.length) {
+		todos.pop();
+	}
+};
+
+//* parameter todo는 Todo interface를 준수하여야 한다.
+const newTodo: Todo = { id: 1, content: 'typescript', completed: false };
+addTodo(newTodo);
+console.log(todos); // [ { id: 1, content: 'typescript', completed: false } ]
+
+removeTodo();
+console.log(todos); // []
+```
+
+- 3. 함수와 인터페이스
+  - 타입이 선언된 파라미터 리스트와 리턴 타입을 정의하여 인터페이스로 함수의 타입을 정의할수있다.
+
+```ts
+//* 함수 인터페이스의 정의
+interface SquareFunc {
+	(num: number): number;
+}
+
+//* 함수 인터페이스를 구현하는 함수는 인터페이스를 준수하여야한다.
+const squareFunc: SquareFunc = function (num: number) {
+	return num * num;
+};
+
+const cubicFunc: SquareFunc = (num: number) => {
+	return num * num * num;
+};
+
+console.log(squareFunc(2)); // 4
+console.log(cubicFunc(2)); // 8
+```
+
+- 4. 클래스와 인터페이스
+  - 인터페이스에 implements 받은 클래스는 지정된 인터페이스를 구현해야한다
+  - 인터페이스를 구현하는 클래스의 일관성을 유지할수 있는 장점을 갖는다.
+  - 인터페이스는 직접 인스턴스를 생성할 수 없다.
+  - 즉, 인터페이스는 도면 / 클래스는 공장
+  - 인터페이스는 properties와 method를 포함한다. 단 method는 추상 method이다.
+
+```ts
+//* interface의 정의
+interface IUser {
+	name: string;
+	age: number;
+	sayIam(): void;
+}
+
+//* interface를 구현하는 클래스는 properties와 추상 method를 구현해야한다.
+class User implements IUser {
+	//* interface에서 정의한 properties 구현
+	constructor(public name: string, public age: number) {}
+
+	//* interface에서 정의한 추상 method 구현
+	sayIam() {
+		console.log(`i am ${this.name}, ${this.age}`);
+	}
+}
+
+interface ITodo {
+	id: number;
+	content: string;
+	complemented: boolean;
+	user: User;
+}
+
+//* Todo 클래스는 ITodo 인터페이스를 구현해야한다.
+class Todo implements ITodo {
+	constructor(
+		public id: number,
+		public content: string,
+		public complemented: boolean,
+		public user: User
+	) {}
+}
+
+const greeter = (user: IUser): void => {
+	user.sayIam();
+};
+
+const user = new User('ju', 28);
+greeter(user);
+const todo = new Todo(1, 'Typescript', false, user);
+console.log(todo);
+```
+
+- 5. Duck typing
+  - 인터페이스를 구현하였다고 타입체크를 통과하는 유일한방법은 아니다
+  - 타입체크에서 중요한것은 값을 실제로 가지고 있는것이다.
+
+```ts
+interface IDuck {
+	quack(): void;
+}
+
+class MallardDuck implements IDuck {
+	quack() {
+		console.log('Quack!');
+	}
+}
+
+class RedheadDuck {
+	quack() {
+		console.log('q~uack!');
+	}
+}
+
+function makeNoise(duck: IDuck): void {
+	duck.quack();
+}
+
+//* IDuck에 영향을 받지 않고 구현된 RedheadDuck class도
+//* makeNoise parameter의 타입 체크를 실제 값으로만 체크하기 떄문에 통과한다
+makeNoise(new MallardDuck()); // Quack!
+makeNoise(new RedheadDuck()); // q~uack!
+```
+
+- TypeScript는 해당 인터페이스에서 정의한 프로퍼티나 메소드를 가지고 있다면 그 인터페이스를 구현한 것으로 인정한다.
+
+```ts
+interface IPerson {
+	name: string;
+}
+
+function sayHello(person: IPerson): void {
+	console.log(`hello ${person.name}`);
+}
+
+//* parameter에 정의된 타입과 정확히 일치하지않지만 적용가능
+const me = { name: 'Lee', age: 18 };
+sayHello(me);
+```
+
+- interface는 개발단계에서 도움을 주기 위해 제공되는 기능으로 자바스크립트 표준이 아니다.
+- 따라서 위 예제를 트랜스 파일링하면 다음과 같다
+
+```js
+function sayHello(person) {
+	console.log('hello ' + person.name);
+}
+var me = { name: 'Lee', age: 18 };
+sayHello(me);
+```
+
+- 6. 선택적 프로퍼티(Optional Property)
+  - 인터페이스의 properties가 선택적으로 필요한 경우
+
+```ts
+interface UserInfo {
+	username: string;
+	password: string;
+	age?: number;
+	address?: string;
+}
+
+const userInfo: UserInfo = {
+	username: 'ju',
+	password: 'aadd',
+	age: 4,
+};
+
+console.log(userInfo);
+```
+
+- 7. 인터페이스 상속
 
 ### Reference
 

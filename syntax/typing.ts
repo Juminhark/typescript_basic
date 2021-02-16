@@ -19,22 +19,22 @@ console.log(multiply1(10, 2));
 console.log(multiply2(10, 3));
 // console.log(multiply1(true, 1)); //! error : Argument of type 'boolean' is not assignable to parameter of type 'number'.
 
-//* boolean
+//? 1. boolean
 let isDone: boolean = false;
 
-//* null
+//? 2. null
 let n: null = null;
 
-//* undefined
+//? 3. undefined
 let u: undefined = undefined;
 
-//* number
+//? 4. number
 let decimal: number = 6;
 let hex: number = 0xf00d; // 16진수
 let binary: number = 0b1010; // 2 진수
 let octal: number = 0o744; // 8진수
 
-//* string: 원시 타입 문자열 타입
+//? 5. string: 원시 타입 문자열 타입
 let color: string = 'blue';
 color = 'red';
 // color = new String('green'); //! error: 'string' is a primitive, but 'String' is a wrapper object. Prefer using 'string' when possible.
@@ -46,15 +46,15 @@ let objectStr: String;
 objectStr = 'hello'; // ok
 objectStr = new String('hi'); // ok
 
-//* object
+//? 6. object
 const obj: object = {};
 
-//* array
+//? 7. array
 let list1: any[] = [1, 'two', true];
 let list2: number[] = [1, 2, 3];
 let list3: Array<number> = [1, 2, 3]; // 제네릭 배열 타입
 
-//* tuple : 고정된 요소수 만큼의 타입을 미리 선언후 배열을 표현
+//? 8. tuple : 고정된 요소수 만큼의 타입을 미리 선언후 배열을 표현
 let tuple: [string, number];
 tuple = ['hello', 10]; // OK
 // tuple = [10, 10]; //! error : Type 'number' is not assignable to type 'string'.
@@ -62,7 +62,7 @@ tuple = ['hello', 10]; // OK
 // tuple = ['hello', 10, 'world', 100]; //! error : Type '[string, number, string, number]' is not assignable to type '[string, number]'.
 // tuple.push(true); //! error : Argument of type 'boolean' is not assignable to parameter of type 'string | number'.
 
-//* enum : 열거형은 숫자값 집합에 이름을 지정한 것이다.
+//? 9. enum : 열거형은 숫자값 집합에 이름을 지정한 것이다.
 enum Color1 {
 	Red,
 	Green,
@@ -94,18 +94,18 @@ let c3: Color3 = Color3.Blue;
 
 console.log(c3); // 4 : Blue가 숫자값 4를 갖게 되어 4
 
-//* any: 타입 추론(type inference)할 수 없거나 타입 체크가 필요 없는 변수에 사용한다.
+//? 10. any: 타입 추론(type inference)할 수 없거나 타입 체크가 필요 없는 변수에 사용한다.
 //* var 키워드로 선언한 변수와 같이 어떤 타입의 값이라도 할당할 수 있다.
 let notSure: any = 4;
 notSure = 'maybe a string instead';
 notSure = false; // okay, definitely a boolean
 
-//* void : 일반적으로 함수에서 반환값이 없을 경우 사용한다.
+//? 11. void : 일반적으로 함수에서 반환값이 없을 경우 사용한다.
 function warnUser(): void {
 	console.log('This is my warning message');
 }
 
-//* never : 결코 발생하지 않는 값
+//? 12. never : 결코 발생하지 않는 값
 function infiniteLoop(): never {
 	while (true) {}
 }
