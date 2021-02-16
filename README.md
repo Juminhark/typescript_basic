@@ -573,6 +573,35 @@ console.log(userInfo);
 ```
 
 - 7. 인터페이스 상속
+  - extends 키워드로 상속가능, 복수 가능
+
+```ts
+interface Person {
+	name: string;
+	age?: number;
+}
+
+interface Robot {
+	ai: boolean;
+}
+
+interface Humanoid extends Person, Robot {
+	upgrade: number;
+}
+
+const humanoid: Humanoid = {
+	name: 'ju',
+	age: 12,
+	ai: true,
+	upgrade: 3,
+};
+
+console.log(humanoid);
+```
+
+### Type Alias
+
+- Type Alias는 새로운 타입을 정의한다
 
 ### Reference
 
