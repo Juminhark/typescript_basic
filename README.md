@@ -2,6 +2,15 @@
 
 <img src="https://poiemaweb.com/img/typescript-logo.png" width="60%" height="50%" alt="typescript-logo"></img>
 
+### javascript
+
+- 자바스크립트가 c나 java와 같은 c-family와 구별되는 특징
+  - Prototype-based Object Oriented Language
+  - Scope 와 this
+  - dynamic typed 언어 혹은 loosely typed언어
+- 이런 특성은 클래스 기반 객체지향언어(Java, C++, C# 등)에 익숙한 개발자를 혼란스럽게 하고
+- 코드가 복잡해지거나 디버그와 테스트 공수가 증가하는 문제가 있어 규모가 큰 프로젝트에서 주의하여야 했다.
+
 ### 소개
 
 - JavaScript 대체 언어의 하나로써 JavaScript(ES5)의 Superset(상위확장)이다. C#의 창시자인 덴마크 출신 소프트웨어 엔지니어 Anders Hejlsberg(아네르스 하일스베르)가 개발을 주도한 TypeScript는 Microsoft에서 2012년 발표한 오픈소스로, 정적 타이핑을 지원하며 ES6(ECMAScript 2015)의 클래스, 모듈 등과 ES7의 Decorator 등을 지원한다.
@@ -14,20 +23,30 @@
 
 ### 장점
 
-- 정적 타입
+- 정적 타입(Statically typed)
+- Javascript의 다음의 함수는 2개요소를 인수를 전달받아 합치는 함수이다
+- 개발자의 의도는 2개의 number를 더한값을 리턴하는것이였으나 string값을 요소로 받아 최초의도와 다른 함수가 되었다.
+- 따라서 함수가 개발자의 의도에 따라 기능을 수행하도록 각 요소의 타입을 명시하여
+- 의도하지 않은 error를 줄이는것이 typescript 이다.
+
+```js
+function sum(a, b) {
+	return a + b;
+}
+
+console.log(sum('2', '3')); // '23'
+```
 
 ```ts
-// error : TSError: ⨯ Unable to compile TypeScript:
-const sum = (a, b) => {
-	return a + b;
-};
-
 // 정확한 parameter의 타입을 명시하여 개발자의 의도에 따라 기능이 수행되도록 돕는다.
-const sum = (a: number, b: number) => {
+const sum = (a: number, b: number): number => {
 	return a + b;
 };
 
 console.log(sum(1, 2));
+
+//! error : Argument of type 'string' is not assignable to parameter of type 'number'.
+console.log(sum('1', '2'));
 ```
 
 - 강력한 객체지향 프로그래밍 지원
@@ -553,7 +572,7 @@ sayHello(me);
 ```
 
 - 6. 선택적 프로퍼티(Optional Property)
-  - 인터페이스의 properties가 선택적으로 필요한 경우
+  - 인터페이스의 properties가 선택적으로 필요한 경우 ? 키워드 사용
 
 ```ts
 interface UserInfo {
@@ -602,6 +621,172 @@ console.log(humanoid);
 ### Type Alias
 
 - Type Alias는 새로운 타입을 정의한다
+
+```ts
+type Gender = 'male' | 'female';
+
+interface Person {
+	gender: Gender;
+	name: string;
+	age?: number;
+}
+
+//* 빈 객체를 Person 타입으로 지정
+const person = {} as Person;
+// person.gender = 'gi'; //! error : Type '"gi"' is not assignable to type 'Gender'.
+person.gender = 'male';
+person.name = 'Lee';
+person.age = 20;
+// person.address = 'seoul'; //! error : Property 'address' does not exist on type 'Person'.
+
+console.log(person);
+
+//* 문자열 리터럴로 타입 지정
+type Str = 'Lee';
+
+//* 유니온 타입으로 타입 지정
+type Union = string | null;
+
+//* 문자열 유니온 타입으로 타입 지정
+type Name = 'Lee' | 'Kim';
+
+//* 숫자 리터럴 유니온 타입으로 타입 지정
+type Num = 1 | 2 | 3 | 4 | 5;
+
+//* 객체 리터럴 유니온 타입으로 타입 지정
+type Obj = { a: 1 } | { b: 2 };
+
+//* 함수 유니온 타입으로 타입 지정
+type Func = (() => string) | (() => void);
+
+//* 인터페이스 유니온 타입으로 타입 지정
+type Shape = Name | Num | Obj;
+
+//* 튜플로 타입 지정
+type Tuple = [string, boolean];
+const t: Tuple = ['d', false];
+```
+
+### Generic
+
+- 정적 언어의 특징인 정의 시점에 매개변수나 반환값의 타입을 선언.
+- 함수 또는 클래스를 정의 하는 시점에 매개변수나 반환값의 선언하기 어려운 경우가 있다.
+
+```ts
+class Queue {
+	protected data: any[] = [];
+
+	push(item: any) {
+		this.data.push(item);
+	}
+
+	pop() {
+		return this.data.shift();
+	}
+}
+
+const queue = new Queue();
+
+queue.push(0);
+queue.push('1'); // 의도하지 않은 실수!
+
+console.log(queue.pop().toFixed()); // 0
+console.log(queue.pop().toFixed()); //! error :  Runtime error
+//* Number.prototype.toFixed 로 '1'에서 error 발생
+```
+
+- 위와 같은 경우 number 타입 전용 NumberQueue 클래스 정의하여 error 해결 가능
+
+```ts
+//* 위 문제를 해결하기 위해 새로운 queue 정의
+class NumberQueue extends Queue {
+	//* number 타입의 요소만을 push한다.
+	push(item: number) {
+		super.push(item);
+	}
+
+	pop(): number {
+		return super.pop();
+	}
+}
+
+const queue2 = new NumberQueue();
+
+queue2.push(0);
+// queue2.push('1'); //! error :  Argument of type 'string' is not assignable to parameter of type 'number'.
+queue2.push(+'1');
+```
+
+- 다양한 타입을 지원 시 타입 별로 클래스를 상속받아 추가해야 하므로 이 또한 좋은 방법은 아니다.
+- 이러한 경우 제네릭이 해결 방법이 될수 있다.
+
+```ts
+class Queue<T> {
+	protected data: Array<T> = [];
+
+	push(item: T) {
+		this.data.push(item);
+	}
+
+	pop(): T | undefined {
+		return this.data.shift();
+	}
+}
+
+//* number 전용 Queue
+const numberQueue = new Queue<number>();
+
+numberQueue.push(0);
+// numberQueue.push('1'); //! error : Argument of type 'string' is not assignable to parameter of type 'number'.
+numberQueue.push(+'1');
+
+//? [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining)
+//* 값의 존재 여부 확인
+console.log(numberQueue.pop()?.toFixed()); // 0
+console.log(numberQueue.pop()?.toFixed()); // 1
+console.log(numberQueue.pop()?.toFixed()); // undefined
+
+//* string 전용 Queue
+const stringQueue = new Queue<string>();
+
+stringQueue.push('Hello');
+stringQueue.push('World');
+
+console.log(stringQueue.pop()?.toUpperCase()); // HELLO
+console.log(stringQueue.pop()?.toUpperCase()); // WORLD
+console.log(stringQueue.pop()?.toUpperCase()); // undefined
+
+//* 커스텀 객체 전용 Queue
+const myQueue = new Queue<{ name: string; age: number }>();
+myQueue.push({ name: 'Lee', age: 10 });
+myQueue.push({ name: 'Kim', age: 20 });
+
+console.log(myQueue.pop()); // { name: 'Lee', age: 10 }
+console.log(myQueue.pop()); // { name: 'Kim', age: 20 }
+console.log(myQueue.pop()); // undefined
+```
+
+- 제네릭은 생성 시점에 타입을 명시하여 다양한 타입을 사용할 수 있도록 하는 기법
+- 한번의 선언으로 다양한 타입에 재사용이 가능하다는 장점
+- T는 제네릭을 선언할 때 관용적으로 사용되는 식별자로 타입 파라미터(Type parameter)라 한다.
+
+  - 함수에서 사용하면 다양한 매개변수와 리턴값을 사용할수 있다.
+
+```ts
+function reverse<T>(items: T[]): T[] {
+	return items.reverse();
+}
+
+const arg = [1, '2', 3, 4, 5];
+
+//* parameter(인수)에 의해 타입 매개변수가 결정된다
+const reversed = reverse(arg);
+console.log(reversed); // [ 5, 4, 3, '2', 1 ]
+
+const list = [{ name: 'Lee' }, { name: 'Kim' }];
+const reverseList = reverse(list);
+console.log(reverseList); // [ { name: 'Kim' }, { name: 'Lee' } ]
+```
 
 ### Reference
 

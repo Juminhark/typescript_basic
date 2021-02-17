@@ -1,3 +1,5 @@
+//? 추상 클래스
+
 abstract class Animal {
 	//* 추상 method
 	abstract makeSound(): void;

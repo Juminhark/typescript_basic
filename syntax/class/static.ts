@@ -1,3 +1,5 @@
+//? static(정적) : static 선언은 class의 인스턴스생성 없이 호출할수 있다.
+
 class FooStatic {
 	//* static filed
 	static counter = 0;

@@ -1,3 +1,5 @@
+//? 접근 제한자 (Access Modifier)
+
 class Foo {
 	public x: string;
 	protected y: string;

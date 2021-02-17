@@ -20,6 +20,20 @@ console.log(multiply2(10, 3));
 // console.log(multiply1(true, 1)); //! error : Argument of type 'boolean' is not assignable to parameter of type 'number'.
 
 //? 1. boolean
+//? 2. null
+//? 3. undefined
+//? 4. number
+//? 5. string
+//? symbol
+//? 6. object
+//? 7. array
+//? 8. tuple
+//? 9. enum
+//? 10. any
+//? 11. void
+//? 12. never
+
+//? 1. boolean
 let isDone: boolean = false;
 
 //? 2. null
@@ -125,21 +139,6 @@ const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
 //* HTMLElement 타입
 const elem: HTMLElement = dom.window.document.querySelector('p');
 
+//* custom 타입
 class Person {}
-//* Person 타입
 const person: Person = new Person();
-
-//? 타입 추론
-let bar = 123; // bar는 number 타입
-// bar = '123'; //!error : Type 'string' is not assignable to type 'number'.
-
-let baz; // let baz: any 와 동치
-
-baz = 'hello';
-console.log(typeof baz); // string
-
-baz = new String('hi');
-console.log(typeof baz); // object
-
-baz = true;
-console.log(typeof baz); // string
