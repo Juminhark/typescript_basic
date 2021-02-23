@@ -6,7 +6,9 @@
 	"scripts": {
 		"clean": "rd /s/q build",
 		"build": "tsc",
-		"start": "node build/src"
+		"start": "node build/src",
+		"ts:node": "ts-node src/index.ts",
+		"dev": "nodemon"
 	},
 	"dependencies": {
 		"@types/express-handlebars": "^3.1.0",

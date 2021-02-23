@@ -21,6 +21,12 @@
 
 // start : build후 실행
 > yarn start
+
+// 개발중인 index.ts 실행
+> yarn ts:node
+
+// index.ts에 변화가 생길때마다 재실행
+> yarn dev
 ```
 
 ## init
@@ -86,3 +92,65 @@ app.listen(app.get('port'), () => {
 // server start
 > node build/src/index
 ```
+
+## dev setting
+
+- dev중인 directory 실행
+
+  - nodejs(server side js)를 typescript로 개발중이므로 실행에 필요한 dev-dependencies 필요
+  - typescript ts-node nodemon
+
+```js
+// nodemon.json
+{
+  "watch" : [
+    "src"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node ./src/index.ts"
+}
+```
+
+- unit test후 build된 directory 실행
+
+## handlebars
+
+```ts
+// index.ts
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine(
+	'.hbs',
+	exphbs({
+		extname: '.hbs',
+		layoutsDir: path.join(app.get('views'), 'layouts'),
+		partialsDir: path.join(app.get('views'), 'partials'),
+		helpers: require('./lib/helpers'),
+	})
+);
+app.set('view engine', '.hbs');
+```
+
+## Routes
+
+```ts
+// index.ts
+import IndexRoute from './routes';
+
+app.use('/books', IndexRoute);
+
+// ./routes/index.ts
+import { Router } from 'express';
+
+const router: Router = Router();
+router.get('/', (req, res) => {
+	res.send('hello world');
+});
+
+export default router;
+```
+
+## [getbootstrap](https://getbootstrap.com/)
