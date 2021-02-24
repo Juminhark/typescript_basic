@@ -6,8 +6,13 @@ import exphbs from 'express-handlebars';
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
 
+// Access own property
+import Handlebars from 'handlebars';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
+
 //? Initializations
 const app = express();
+import './database';
 
 //? Settings
 app.set('port', process.env.PORT || 3000);
@@ -20,6 +25,7 @@ app.engine(
 		layoutsDir: path.join(app.get('views'), 'layouts'),
 		partialsDir: path.join(app.get('views'), 'partials'),
 		helpers: require('./lib/helpers'),
+		handlebars: allowInsecurePrototypeAccess(Handlebars),
 	})
 );
 app.set('view engine', '.hbs');

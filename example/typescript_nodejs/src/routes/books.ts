@@ -11,7 +11,7 @@ class BooksRoutes {
 	config(): void {
 		this.router.get('/', booksController.index);
 		this.router.get('/add', booksController.renderFormBook);
-		// this.router.post('/add', booksController.saveBook);
+		this.router.post('/add', booksController.saveBook);
 	}
 }
 

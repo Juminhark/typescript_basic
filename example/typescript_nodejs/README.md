@@ -154,3 +154,23 @@ export default router;
 ```
 
 ## [getbootstrap](https://getbootstrap.com/)
+
+## Error issue
+
+- Handlebars: Access has been denied to resolve the property "title" because it is not an "own property" of its parent
+  - [solve](https://github.com/handlebars-lang/handlebars.js/issues/1648)
+
+```ts
+// index.ts
+// Access own property
+import Handlebars from 'handlebars';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
+
+app.engine(
+	'.hbs',
+	exphbs({
+		... ,
+		handlebars: allowInsecurePrototypeAccess(Handlebars),
+	})
+);
+```
