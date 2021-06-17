@@ -1,4 +1,4 @@
-# TypeScript
+# [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 
 <img src="https://poiemaweb.com/img/typescript-logo.png" width="60%" height="50%" alt="typescript-logo"></img>
 
