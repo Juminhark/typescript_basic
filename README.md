@@ -31,7 +31,7 @@
 
 ```js
 function sum(a, b) {
-	return a + b;
+  return a + b;
 }
 
 console.log(sum('2', '3')); // '23'
@@ -40,7 +40,7 @@ console.log(sum('2', '3')); // '23'
 ```ts
 // 정확한 parameter의 타입을 명시하여 개발자의 의도에 따라 기능이 수행되도록 돕는다.
 const sum = (a: number, b: number): number => {
-	return a + b;
+  return a + b;
 };
 
 console.log(sum(1, 2));
@@ -73,14 +73,14 @@ console.log(sum('1', '2'));
 ```ts
 // person.ts 생성
 export class Person {
-	protected name: string;
+  protected name: string;
 
-	constructor(name: string) {
-		this.name = name;
-	}
-	sayHello() {
-		return 'Hello, ' + this.name;
-	}
+  constructor(name: string) {
+    this.name = name;
+  }
+  sayHello() {
+    return 'Hello, ' + this.name;
+  }
 }
 ```
 
@@ -101,9 +101,9 @@ export class Person {
 import { Person } from './person';
 
 class Student extends Person {
-	study(): string {
-		return `${this.name} is studying.`;
-	}
+  study(): string {
+    return `${this.name} is studying.`;
+  }
 }
 
 const student = new Student('Lee');
@@ -194,11 +194,11 @@ console.log(student.study());
 import * as _ from 'lodash';
 
 class Startup {
-	public static main(): number {
-		const group = _.groupBy(['one', 'two', 'three'], 'length');
-		console.log(group); // => { '3': ['one', 'two'], '5': ['three'] }
-		return 0;
-	}
+  public static main(): number {
+    const group = _.groupBy(['one', 'two', 'three'], 'length');
+    console.log(group); // => { '3': ['one', 'two'], '5': ['three'] }
+    return 0;
+  }
 }
 
 Startup.main(); // { '3': [ 'one', 'two' ], '5': [ 'three' ] }
@@ -231,19 +231,19 @@ Startup.main(); // { '3': [ 'one', 'two' ], '5': [ 'three' ] }
 ```ts
 //! error : 이경우 field 선언이 되어있지 않아
 class Person {
-	constructor(name: string) {
-		this.name = name;
-	}
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 class Person {
-	// class안에서 사용될 field 선언
-	name: string;
+  // class안에서 사용될 field 선언
+  name: string;
 
-	// name은 선언된 filed 이기 때문에 사용 가능
-	constructor(name: string) {
-		this.name = name;
-	}
+  // name은 선언된 filed 이기 때문에 사용 가능
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 ```
 
@@ -261,17 +261,17 @@ class Person {
 
 ```ts
 class Person {
-	// class안에서 사용될 field 선언
-	// name: string;
+  // class안에서 사용될 field 선언
+  // name: string;
 
-	// 접근제한자가 사용된 파라미터는 암묵적으로 클래스 filed로 선언된다
-	constructor(private name: string) {
-		this.name = name;
-	}
+  // 접근제한자가 사용된 파라미터는 암묵적으로 클래스 filed로 선언된다
+  constructor(private name: string) {
+    this.name = name;
+  }
 
-	walk(): string {
-		return `person who name is ${this.name}`;
-	}
+  walk(): string {
+    return `person who name is ${this.name}`;
+  }
 }
 ```
 
@@ -279,10 +279,10 @@ class Person {
 
 ```ts
 class Person {
-	// name은 생성자 내부에서만 유효한 지역 변수이다.
-	constructor(public firstName: string, name: string) {
-		console.log(name);
-	}
+  // name은 생성자 내부에서만 유효한 지역 변수이다.
+  constructor(public firstName: string, name: string) {
+    console.log(name);
+  }
 }
 
 const foo = new Person('first', 'name'); // name
@@ -294,22 +294,22 @@ console.log(foo); // Person { firstName: 'first' }
 
 ```ts
 class Foo {
-	private readonly MAX_LEN: number = 5;
-	private readonly MSG: string;
+  private readonly MAX_LEN: number = 5;
+  private readonly MSG: string;
 
-	constructor() {
-		this.MSG = 'hello';
-		// 생성자 내부여서 값 할당 가능.
-		this.MAX_LEN = 10;
-	}
+  constructor() {
+    this.MSG = 'hello';
+    // 생성자 내부여서 값 할당 가능.
+    this.MAX_LEN = 10;
+  }
 
-	log() {
-		// readonly가 선언된 프로퍼티는 재할당이 금지된다.
-		// this.MAX_LEN = 10; //! error: Cannot assign to 'MAX_LEN' because it is a constant or a read-only property.
+  log() {
+    // readonly가 선언된 프로퍼티는 재할당이 금지된다.
+    // this.MAX_LEN = 10; //! error: Cannot assign to 'MAX_LEN' because it is a constant or a read-only property.
 
-		console.log(`MAX_LEN: ${this.MAX_LEN}`); // MAX_LEN: 5
-		console.log(`MSG: ${this.MSG}`); // MSG: hello
-	}
+    console.log(`MAX_LEN: ${this.MAX_LEN}`); // MAX_LEN: 5
+    console.log(`MSG: ${this.MSG}`); // MSG: hello
+  }
 }
 
 new Foo().log();
@@ -320,26 +320,26 @@ new Foo().log();
 
 ```ts
 class FooStatic {
-	//* static filed
-	static counter = 0;
+  //* static filed
+  static counter = 0;
 
-	constructor(public prop: any) {
-		this.prop = prop;
+  constructor(public prop: any) {
+    this.prop = prop;
 
-		//* 생성될때마다 늘어남
-		FooStatic.counter++;
-	}
+    //* 생성될때마다 늘어남
+    FooStatic.counter++;
+  }
 
-	static staticMethod() {
-		//* 정적 method는 this를 사용할 수 없다.
-		//* 정적 method 내부에서 this는 클래스의 인스턴스가 아닌 클래스 자신을 가리킨다.
-		console.log(this); // [Function: FooStatic] { staticMethod: [Function], counter: 0 }
-		return 'staticMethod';
-	}
+  static staticMethod() {
+    //* 정적 method는 this를 사용할 수 없다.
+    //* 정적 method 내부에서 this는 클래스의 인스턴스가 아닌 클래스 자신을 가리킨다.
+    console.log(this); // [Function: FooStatic] { staticMethod: [Function], counter: 0 }
+    return 'staticMethod';
+  }
 
-	prototypeMethod() {
-		return this.prop;
-	}
+  prototypeMethod() {
+    return this.prop;
+  }
 }
 
 //* static은 클래스 이름으로 호출한다.
@@ -360,23 +360,23 @@ console.log(FooStatic.counter); // 1
 
 ```ts
 abstract class Animal {
-	//* 추상 method
-	abstract makeSound(): void;
+  //* 추상 method
+  abstract makeSound(): void;
 
-	//* 일반 method
-	move(): void {
-		console.log('roaming the earth...');
-	}
+  //* 일반 method
+  move(): void {
+    console.log('roaming the earth...');
+  }
 }
 
 //* 직접 인스턴스를 생성할수 없다
 // new Animal(); //! error : Cannot create an instance of an abstract class.
 
 class Dog extends Animal {
-	//* 추상 클래스를 상속한 클래스는 추상 method를 반드시 구현해야 한다
-	makeSound(): void {
-		console.log('awoooooo...');
-	}
+  //* 추상 클래스를 상속한 클래스는 추상 method를 반드시 구현해야 한다
+  makeSound(): void {
+    console.log('awoooooo...');
+  }
 }
 
 const myDog = new Dog();
@@ -405,9 +405,9 @@ myDog.move();
 ```ts
 //? interface definition
 interface Todo {
-	id: number;
-	content: string;
-	completed: boolean;
+  id: number;
+  content: string;
+  completed: boolean;
 }
 
 //* 변수 todo의 타입으로 Todo interface를 선언하였다.
@@ -420,13 +420,13 @@ let todos: Todo[] = [];
 
 //* parameter todo의 타입으로 Todo interface를 선언
 function addTodo(todo: Todo) {
-	todos = [...todos, todo];
+  todos = [...todos, todo];
 }
 
 const removeTodo = (): void => {
-	if (todos.length) {
-		todos.pop();
-	}
+  if (todos.length) {
+    todos.pop();
+  }
 };
 
 //* parameter todo는 Todo interface를 준수하여야 한다.
@@ -444,16 +444,16 @@ console.log(todos); // []
 ```ts
 //* 함수 인터페이스의 정의
 interface SquareFunc {
-	(num: number): number;
+  (num: number): number;
 }
 
 //* 함수 인터페이스를 구현하는 함수는 인터페이스를 준수하여야한다.
 const squareFunc: SquareFunc = function (num: number) {
-	return num * num;
+  return num * num;
 };
 
 const cubicFunc: SquareFunc = (num: number) => {
-	return num * num * num;
+  return num * num * num;
 };
 
 console.log(squareFunc(2)); // 4
@@ -470,41 +470,41 @@ console.log(cubicFunc(2)); // 8
 ```ts
 //* interface의 정의
 interface IUser {
-	name: string;
-	age: number;
-	sayIam(): void;
+  name: string;
+  age: number;
+  sayIam(): void;
 }
 
 //* interface를 구현하는 클래스는 properties와 추상 method를 구현해야한다.
 class User implements IUser {
-	//* interface에서 정의한 properties 구현
-	constructor(public name: string, public age: number) {}
+  //* interface에서 정의한 properties 구현
+  constructor(public name: string, public age: number) {}
 
-	//* interface에서 정의한 추상 method 구현
-	sayIam() {
-		console.log(`i am ${this.name}, ${this.age}`);
-	}
+  //* interface에서 정의한 추상 method 구현
+  sayIam() {
+    console.log(`i am ${this.name}, ${this.age}`);
+  }
 }
 
 interface ITodo {
-	id: number;
-	content: string;
-	complemented: boolean;
-	user: User;
+  id: number;
+  content: string;
+  complemented: boolean;
+  user: User;
 }
 
 //* Todo 클래스는 ITodo 인터페이스를 구현해야한다.
 class Todo implements ITodo {
-	constructor(
-		public id: number,
-		public content: string,
-		public complemented: boolean,
-		public user: User
-	) {}
+  constructor(
+    public id: number,
+    public content: string,
+    public complemented: boolean,
+    public user: User
+  ) {}
 }
 
 const greeter = (user: IUser): void => {
-	user.sayIam();
+  user.sayIam();
 };
 
 const user = new User('ju', 28);
@@ -519,23 +519,23 @@ console.log(todo);
 
 ```ts
 interface IDuck {
-	quack(): void;
+  quack(): void;
 }
 
 class MallardDuck implements IDuck {
-	quack() {
-		console.log('Quack!');
-	}
+  quack() {
+    console.log('Quack!');
+  }
 }
 
 class RedheadDuck {
-	quack() {
-		console.log('q~uack!');
-	}
+  quack() {
+    console.log('q~uack!');
+  }
 }
 
 function makeNoise(duck: IDuck): void {
-	duck.quack();
+  duck.quack();
 }
 
 //* IDuck에 영향을 받지 않고 구현된 RedheadDuck class도
@@ -548,11 +548,11 @@ makeNoise(new RedheadDuck()); // q~uack!
 
 ```ts
 interface IPerson {
-	name: string;
+  name: string;
 }
 
 function sayHello(person: IPerson): void {
-	console.log(`hello ${person.name}`);
+  console.log(`hello ${person.name}`);
 }
 
 //* parameter에 정의된 타입과 정확히 일치하지않지만 적용가능
@@ -565,7 +565,7 @@ sayHello(me);
 
 ```js
 function sayHello(person) {
-	console.log('hello ' + person.name);
+  console.log('hello ' + person.name);
 }
 var me = { name: 'Lee', age: 18 };
 sayHello(me);
@@ -576,16 +576,16 @@ sayHello(me);
 
 ```ts
 interface UserInfo {
-	username: string;
-	password: string;
-	age?: number;
-	address?: string;
+  username: string;
+  password: string;
+  age?: number;
+  address?: string;
 }
 
 const userInfo: UserInfo = {
-	username: 'ju',
-	password: 'aadd',
-	age: 4,
+  username: 'ju',
+  password: 'aadd',
+  age: 4,
 };
 
 console.log(userInfo);
@@ -596,23 +596,23 @@ console.log(userInfo);
 
 ```ts
 interface Person {
-	name: string;
-	age?: number;
+  name: string;
+  age?: number;
 }
 
 interface Robot {
-	ai: boolean;
+  ai: boolean;
 }
 
 interface Humanoid extends Person, Robot {
-	upgrade: number;
+  upgrade: number;
 }
 
 const humanoid: Humanoid = {
-	name: 'ju',
-	age: 12,
-	ai: true,
-	upgrade: 3,
+  name: 'ju',
+  age: 12,
+  ai: true,
+  upgrade: 3,
 };
 
 console.log(humanoid);
@@ -626,9 +626,9 @@ console.log(humanoid);
 type Gender = 'male' | 'female';
 
 interface Person {
-	gender: Gender;
-	name: string;
-	age?: number;
+  gender: Gender;
+  name: string;
+  age?: number;
 }
 
 //* 빈 객체를 Person 타입으로 지정
@@ -674,15 +674,15 @@ const t: Tuple = ['d', false];
 
 ```ts
 class Queue {
-	protected data: any[] = [];
+  protected data: any[] = [];
 
-	push(item: any) {
-		this.data.push(item);
-	}
+  push(item: any) {
+    this.data.push(item);
+  }
 
-	pop() {
-		return this.data.shift();
-	}
+  pop() {
+    return this.data.shift();
+  }
 }
 
 const queue = new Queue();
@@ -700,14 +700,14 @@ console.log(queue.pop().toFixed()); //! error :  Runtime error
 ```ts
 //* 위 문제를 해결하기 위해 새로운 queue 정의
 class NumberQueue extends Queue {
-	//* number 타입의 요소만을 push한다.
-	push(item: number) {
-		super.push(item);
-	}
+  //* number 타입의 요소만을 push한다.
+  push(item: number) {
+    super.push(item);
+  }
 
-	pop(): number {
-		return super.pop();
-	}
+  pop(): number {
+    return super.pop();
+  }
 }
 
 const queue2 = new NumberQueue();
@@ -722,15 +722,15 @@ queue2.push(+'1');
 
 ```ts
 class Queue<T> {
-	protected data: Array<T> = [];
+  protected data: Array<T> = [];
 
-	push(item: T) {
-		this.data.push(item);
-	}
+  push(item: T) {
+    this.data.push(item);
+  }
 
-	pop(): T | undefined {
-		return this.data.shift();
-	}
+  pop(): T | undefined {
+    return this.data.shift();
+  }
 }
 
 //* number 전용 Queue
@@ -774,7 +774,7 @@ console.log(myQueue.pop()); // undefined
 
 ```ts
 function reverse<T>(items: T[]): T[] {
-	return items.reverse();
+  return items.reverse();
 }
 
 const arg = [1, '2', 3, 4, 5];
@@ -790,5 +790,5 @@ console.log(reverseList); // [ { name: 'Kim' }, { name: 'Lee' } ]
 
 ### Reference
 
-- [poiemaweb.com](https://poiemaweb.com/)
+- [poiemaweb - typescript](https://poiemaweb.com/typescript-introduction)
 - [TypeScript & Nodemon — The Ultimate Setup!](https://levelup.gitconnected.com/typescript-nodemon-the-ultimate-setup-7200aa60cc8b)
